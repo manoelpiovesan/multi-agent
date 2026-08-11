@@ -1,9 +1,11 @@
+import {UserRole} from "../../models/api/user";
+
 export interface APIUserCreate {
   google_profile_id: string;
   name: string;
   email: string;
   picture?: string;
-  role?: string;
+  role?: UserRole;
 }
 
 export interface APIUser extends APIUserCreate {

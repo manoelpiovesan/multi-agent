@@ -1,12 +1,13 @@
 import {Body, Controller, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
 import {AbstractController} from "./abstract_controller";
+import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APITool, APIToolCreate} from "../types/api/tool_types";
 import {ToolRepository} from "../repositories/tool.repository";
 
 @Route('tools')
 @Tags("Tools")
-@Security("jwt", ["admin"])
+@Security("jwt", [UserRole.ADMIN])
 export class ToolController extends AbstractController<string, APITool, APIToolCreate> {
 
   @Get()

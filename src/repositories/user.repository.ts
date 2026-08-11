@@ -1,4 +1,4 @@
-import { User} from "../models/api/user";
+import {User, UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {Op} from "sequelize";
 import {APIUser, APIUserCreate, APIUserRegister} from "../types/api/user_types";
@@ -94,15 +94,15 @@ export class UserRepository {
     return email.trim().toLowerCase();
   }
 
-  private static async getDefaultRole(): Promise<string> {
+  private static async getDefaultRole(): Promise<UserRole> {
     const isFirstUser = await User.count() === 0;
 
     if (isFirstUser) {
       console.log('[INFO] First user created. Granting admin role.');
-      return 'admin';
+      return UserRole.ADMIN;
     }
 
-    return 'user';
+    return UserRole.USER;
   }
 
 }

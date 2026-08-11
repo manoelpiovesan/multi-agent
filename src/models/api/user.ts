@@ -1,6 +1,11 @@
 import {Table, Column, DataType, Model, PrimaryKey} from 'sequelize-typescript';
 import {CreationOptional, InferAttributes, InferCreationAttributes} from 'sequelize';
 
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
 @Table({tableName: 'users'})
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
@@ -44,10 +49,10 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   picture?: CreationOptional<string>;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.ENUM(...Object.values(UserRole)),
+    defaultValue: UserRole.USER,
     allowNull: true,
   })
-  role?: CreationOptional<string>;
-
+  role?: CreationOptional<UserRole>;
 }
 

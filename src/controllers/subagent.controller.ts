@@ -1,12 +1,13 @@
 import {Body, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
 import {AbstractController} from "./abstract_controller";
+import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISubagent, APISubagentCreate} from "../types/api/subagent_types";
 import {SubagentRepository} from "../repositories/subagent.repository";
 
 @Route('subagents')
 @Tags("Subagents")
-@Security("jwt", ["admin"])
+@Security("jwt", [UserRole.ADMIN])
 export class SubagentController extends AbstractController<string, APISubagent, APISubagentCreate> {
 
   @Get()

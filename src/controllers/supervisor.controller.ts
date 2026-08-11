@@ -1,12 +1,13 @@
 import {Body, Controller, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
 import {AbstractController} from "./abstract_controller";
+import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISupervisor, APISupervisorCreate} from "../types/api/supervisor_types";
 import {SupervisorRepository} from "../repositories/supervisor.repository";
 
 @Route('supervisors')
 @Tags("Supervisors")
-@Security("jwt", ["admin"])
+@Security("jwt", [UserRole.ADMIN])
 export class SupervisorController extends AbstractController<string, APISupervisor, APISupervisorCreate> {
 
   @Get()

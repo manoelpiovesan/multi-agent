@@ -1,5 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import {UserRole} from "../models/api/user";
 import {APIUser} from "../types/api/user_types";
 
 /**
@@ -32,7 +33,7 @@ export async function expressAuthentication(
 
     // Role checking
     if (scopes && scopes.length > 0) {
-      const userRole = request.jwt_user!.role || 'user';
+      const userRole = request.jwt_user!.role || UserRole.USER;
       if (!scopes.includes(userRole)) {
         return Promise.reject({ message: 'Insufficient role' });
       }

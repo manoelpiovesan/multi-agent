@@ -1,12 +1,13 @@
 import {Body, Controller, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
 import {AbstractController} from "./abstract_controller";
+import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APILlmEngine, APILlmEngineCreate} from "../types/api/llm_engine_types";
 import {LlmEngineRepository} from "../repositories/llm_engine.repository";
 
 @Route('llm-engines')
 @Tags("LlmEngines")
-@Security("jwt", ["admin"])
+@Security("jwt", [UserRole.ADMIN])
 export class LlmEngineController extends AbstractController<string, APILlmEngine, APILlmEngineCreate> {
 
   @Get()

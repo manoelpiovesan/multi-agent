@@ -1,4 +1,5 @@
 import {Get, Queries, Request, Route, Security, Tags, Controller} from 'tsoa';
+import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {UserRepository} from "../repositories/user.repository";
 import {APIUser} from "../types/api/user_types";
@@ -24,7 +25,7 @@ export class UserController extends Controller {
    * @param params
    */
   @Get()
-  @Security('jwt', ['admin'])
+  @Security('jwt', [UserRole.ADMIN])
   public async getAll(
     @Queries() params: DefaultSearchParams
   ): Promise<APIUser[]> {

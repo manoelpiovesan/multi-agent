@@ -1,12 +1,13 @@
 import {Body, Controller, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
 import {AbstractController} from "./abstract_controller";
+import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISkill, APISkillCreate} from "../types/api/skill_types";
 import {SkillRepository} from "../repositories/skill.repository";
 
 @Route('skills')
 @Tags("Skills")
-@Security("jwt", ["admin"])
+@Security("jwt", [UserRole.ADMIN])
 export class SkillController extends AbstractController<string, APISkill, APISkillCreate> {
 
   @Get()
