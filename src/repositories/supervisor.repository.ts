@@ -1,6 +1,9 @@
 import {Op} from "sequelize";
 import {SupervisorModel} from "../models/supervisor_model";
 import {LlmEngineModel} from "../models/llm_engine_model";
+import {SubagentModel} from "../models/subagent_model";
+import {ToolModel} from "../models/tool_model";
+import {SkillModel} from "../models/skill_model";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISupervisor, APISupervisorCreate} from "../types/api/supervisor_types";
 
@@ -30,6 +33,30 @@ export class SupervisorRepository {
     }
 
     return this.toApi(supervisor);
+  }
+
+  static async findRuntimeById(id: string): Promise<SupervisorModel | null> {
+    return await SupervisorModel.findByPk(id, {
+      include: [
+        {
+          model: LlmEngineModel,
+        },
+        {
+          model: SubagentModel,
+          include: [
+            {
+              model: LlmEngineModel,
+            },
+            {
+              model: ToolModel,
+            },
+            {
+              model: SkillModel,
+            },
+          ],
+        },
+      ],
+    });
   }
 
   static async create(data: APISupervisorCreate): Promise<APISupervisor | null> {

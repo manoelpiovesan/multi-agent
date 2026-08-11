@@ -4,6 +4,8 @@ import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISubagent, APISubagentCreate} from "../types/api/subagent_types";
 import {SubagentRepository} from "../repositories/subagent.repository";
+import {APIAgentRuntimeInitializeResponse} from "../types/api/agent_runtime_types";
+import {AgentRuntimeService} from "../services/agent_runtime.service";
 
 @Route('subagents')
 @Tags("Subagents")
@@ -73,6 +75,19 @@ export class SubagentController extends AbstractController<string, APISubagent, 
     }
 
     this.setStatus(204);
+  }
+
+  @Post('{id}/initialize')
+  async initialize(
+    @Path() id: string,
+  ): Promise<APIAgentRuntimeInitializeResponse> {
+    const runtime = await AgentRuntimeService.initializeSubagent(id);
+
+    if (!runtime) {
+      return Promise.reject({status: 404, message: 'Subagent not found'});
+    }
+
+    return runtime;
   }
 
   private validatePayload(data: Partial<APISubagentCreate>, allowPartial = false): void {

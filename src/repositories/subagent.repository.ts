@@ -1,6 +1,8 @@
 import {Op} from "sequelize";
 import {SubagentModel} from "../models/subagent_model";
 import {LlmEngineModel} from "../models/llm_engine_model";
+import {ToolModel} from "../models/tool_model";
+import {SkillModel} from "../models/skill_model";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISubagent, APISubagentCreate} from "../types/api/subagent_types";
 
@@ -30,6 +32,22 @@ export class SubagentRepository {
     }
 
     return this.toApi(subagent);
+  }
+
+  static async findRuntimeById(id: string): Promise<SubagentModel | null> {
+    return await SubagentModel.findByPk(id, {
+      include: [
+        {
+          model: LlmEngineModel,
+        },
+        {
+          model: ToolModel,
+        },
+        {
+          model: SkillModel,
+        },
+      ],
+    });
   }
 
   static async create(data: APISubagentCreate): Promise<APISubagent | null> {

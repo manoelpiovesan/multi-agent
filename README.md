@@ -14,6 +14,7 @@
 | GOOGLE_CALLBACK_URL  | No       | Google OAuth callback URL         |                                                       |
 | AUTH_REDIRECT_URL    | No       | Redirect URL after authentication |                                                       |
 | JWT_SECRET           | Yes      | Secret for signing JWT tokens     |                                                       |
+| OPENAI_API_KEY       | No       | API key for OpenAI-compatible agent runtimes |                                             |
 
 ## Running the Application
 
@@ -23,6 +24,8 @@
    ```
 
 2. Set environment variables for PostgreSQL and JWT. Configure the Google variables only if you also want to keep the OAuth flow enabled.
+
+   To invoke supervisors and subagents through LangChain/LangGraph, also configure `OPENAI_API_KEY` or set `llm_engine.config.api_key_env` to the environment variable that stores the provider key.
 
    > Or you can use a development PostgreSQL docker container with default values:
 

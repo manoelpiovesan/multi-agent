@@ -1,9 +1,11 @@
-import {Body, Controller, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
+import {Body, Delete, Get, Path, Post, Put, Queries, Route, Security, Tags} from "tsoa";
 import {AbstractController} from "./abstract_controller";
 import {UserRole} from "../models/api/user";
 import {DefaultSearchParams} from "../types/api/search_types";
 import {APISupervisor, APISupervisorCreate} from "../types/api/supervisor_types";
 import {SupervisorRepository} from "../repositories/supervisor.repository";
+import {APIAgentRuntimeInitializeResponse} from "../types/api/agent_runtime_types";
+import {AgentRuntimeService} from "../services/agent_runtime.service";
 
 @Route('supervisors')
 @Tags("Supervisors")
@@ -73,6 +75,19 @@ export class SupervisorController extends AbstractController<string, APISupervis
     }
 
     this.setStatus(204);
+  }
+
+  @Post('{id}/initialize')
+  async initialize(
+    @Path() id: string,
+  ): Promise<APIAgentRuntimeInitializeResponse> {
+    const runtime = await AgentRuntimeService.initializeSupervisor(id);
+
+    if (!runtime) {
+      return Promise.reject({status: 404, message: 'Supervisor not found'});
+    }
+
+    return runtime;
   }
 
   private validatePayload(data: Partial<APISupervisorCreate>, allowPartial = false): void {
