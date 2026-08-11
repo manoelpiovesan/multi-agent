@@ -1,0 +1,34 @@
+{
+  "entryFile": "src/server.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/controllers/**/*.ts"
+  ],
+  "compilerOptions": {
+    "strictNullChecks": true
+  },
+  "spec": {
+    "basePath": "/api/v1",
+    "outputDirectory": "build",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "google-jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT token obtained from Google OAuth authentication"
+      }
+    },
+    "security": [
+      {
+        "google-jwt": []
+      }
+    ]
+  },
+  "routes": {
+    "basePath": "/api/v1",
+    "routesDir": "build",
+    "middleware": "express",
+    "authenticationModule": "src/middlewares/authorization"
+  }
+}
