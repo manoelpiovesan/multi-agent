@@ -12,16 +12,16 @@
     "outputDirectory": "build",
     "specVersion": 3,
     "securityDefinitions": {
-      "google-jwt": {
+      "jwt": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "JWT token obtained from Google OAuth authentication"
+        "description": "JWT token obtained from local or Google authentication"
       }
     },
     "security": [
       {
-        "google-jwt": []
+        "jwt": []
       }
     ]
   },
