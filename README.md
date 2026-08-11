@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Simple TSOA Backend</h1>
-  <p>A Node.js backend application with Google OAuth authentication and PostgreSQL database integration.</p>
+  <p>A Node.js backend application with JWT authentication, optional Google OAuth and PostgreSQL integration.</p>
 </div>
 
 ## Environment Variables
@@ -9,10 +9,10 @@
 |----------------------|----------|-----------------------------------|-------------------------------------------------------|
 | DATABASE_URL         | No       | SQL Database URL                  | postgres://admin:password@localhost:5432/backend_node |
 | DATABASE_DIALECT     | No       | Database dialect                  | postgres                                              |
-| GOOGLE_CLIENT_ID     | Yes      | Google OAuth client ID            |                                                       |
-| GOOGLE_CLIENT_SECRET | Yes      | Google OAuth client secret        |                                                       |
-| GOOGLE_CALLBACK_URL  | Yes      | Google OAuth callback URL         |                                                       |
-| AUTH_REDIRECT_URL    | Yes      | Redirect URL after authentication |                                                       |
+| GOOGLE_CLIENT_ID     | No       | Google OAuth client ID            |                                                       |
+| GOOGLE_CLIENT_SECRET | No       | Google OAuth client secret        |                                                       |
+| GOOGLE_CALLBACK_URL  | No       | Google OAuth callback URL         |                                                       |
+| AUTH_REDIRECT_URL    | No       | Redirect URL after authentication |                                                       |
 | JWT_SECRET           | Yes      | Secret for signing JWT tokens     |                                                       |
 
 ## Running the Application
@@ -22,7 +22,7 @@
    npm install
    ```
 
-2. Set environment variables for Google OAuth and PostgreSQL database connection.
+2. Set environment variables for PostgreSQL and JWT. Configure the Google variables only if you also want to keep the OAuth flow enabled.
 
    > Or you can use a development PostgreSQL docker container with default values:
 

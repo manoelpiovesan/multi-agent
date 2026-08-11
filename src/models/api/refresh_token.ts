@@ -14,10 +14,41 @@ export class RefreshToken extends Model<InferAttributes<RefreshToken>, InferCrea
   id: CreationOptional<string>;
 
   @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true,
+  })
+  token_hash: string;
+
+  @Column({
     type: DataType.DATE,
     allowNull: false,
   })
   expires_at: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  created_at: CreationOptional<Date>;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  last_used_at?: CreationOptional<Date | null>;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+  })
+  revoked_at?: CreationOptional<Date | null>;
+
+  @Column({
+    type: DataType.UUID,
+    allowNull: true,
+  })
+  replaced_by_token_id?: CreationOptional<string | null>;
 
   @ForeignKey(() => User)
   @Column({

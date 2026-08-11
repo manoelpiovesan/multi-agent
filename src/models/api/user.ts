@@ -35,6 +35,12 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     type: DataType.STRING,
     allowNull: true,
   })
+  password_hash?: CreationOptional<string>;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
   picture?: CreationOptional<string>;
 
   @Column({
@@ -44,5 +50,4 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   role?: CreationOptional<string>;
 
 }
-
 

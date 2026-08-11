@@ -5,7 +5,7 @@ import {APIUser} from "../types/api/user_types";
 /**
  * Authentication middleware for Express applications.
  * @param request Express request object
- * @param securityName Name of the security scheme (e.g., 'google-jwt')
+ * @param securityName Name of the security scheme (e.g., 'jwt')
  * @param scopes Optional array of required roles for access control
  * @returns Promise that resolves if authentication is successful,
  * or rejects with an error message if authentication fails
@@ -16,7 +16,7 @@ export async function expressAuthentication(
   scopes?: string[],
 ): Promise<any> {
 
-  if (securityName !== 'google-jwt') {
+  if (securityName !== 'jwt' && securityName !== 'google-jwt') {
     return Promise.reject({ message: 'Unsupported security scheme' });
   }
 
@@ -57,10 +57,9 @@ export const authMiddleware = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  expressAuthentication(req, 'google-jwt')
+  expressAuthentication(req, 'jwt')
     .then(() => next())
     .catch((err) => {
       res.status(401).json({ error: err.message || 'Unauthorized' });
     });
 };
-
