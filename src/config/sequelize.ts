@@ -3,12 +3,14 @@ import {DataTypes, QueryTypes} from 'sequelize';
 import {User} from "../models/api/user";
 import {RefreshToken} from "../models/api/refresh_token";
 import {hashRefreshToken} from "../utils/refresh_token";
+import {LlmEngineModel} from "../models/llm_engine_model";
+import {SkillModel} from "../models/skill_model";
 
 const sequelize = new Sequelize(
   process.env.DATABASE_URL || 'postgres://admin:password@localhost:5432/backend_node',
   {
     dialect: process.env.DATABASE_DIALECT as any || 'postgres',
-    models: [User, RefreshToken],
+    models: [User, RefreshToken, LlmEngineModel, SkillModel],
     logging: false,
   }
 );
