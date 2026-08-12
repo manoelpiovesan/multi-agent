@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>Simple TSOA Backend</h1>
-  <p>A Node.js backend application with JWT authentication, optional Google OAuth and PostgreSQL integration.</p>
+  <h1>Multiagent</h1>
+  <p>Studying multiagent structure with LangGraph and LangChain</p>
 </div>
 
 ## Environment Variables
