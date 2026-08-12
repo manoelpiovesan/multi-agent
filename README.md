@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Multi-Agent</h1>
-  <p>Studying multi-agent structure with LangGraph and LangChain</p>
+  <p>A Study Backend for Multi-Agent Systems, MCP, and Agentic Workflows</p>
 </div>
 
 ## Environment Variables
