@@ -18,6 +18,8 @@
 
 ## Running the Application
 
+Prerequisite: Node.js `>= 18.18.0`.
+
 1. Install dependencies:
    ```bash
    npm install
@@ -37,6 +39,31 @@
     ```bash
     npm start
     ```
+
+## WebSocket Chat (Supervisor)
+
+Use `ws://localhost:3000/ws/chat` to chat in real-time with a supervisor thread.
+
+- Authentication: send `Authorization: Bearer <jwt>` in the WebSocket handshake header.
+- Fallback auth: `ws://localhost:3000/ws/chat?token=<jwt>`.
+- Each message must target an existing thread created with `target_type = supervisor`.
+
+Client event to send:
+
+```json
+{
+  "type": "user_message",
+  "thread_id": "<thread-id>",
+  "content": "Quero planejar uma viagem para Lisboa"
+}
+```
+
+Server events:
+
+- `connected`: handshake/auth succeeded.
+- `processing`: the message was accepted and supervisor execution started.
+- `assistant_message`: final supervisor answer for the thread.
+- `error`: validation/runtime/auth errors.
 
 ## Documentation
 

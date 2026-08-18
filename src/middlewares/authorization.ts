@@ -4,6 +4,20 @@ import {UserRole} from "../models/api/user";
 import {APIUser} from "../types/api/user_types";
 
 /**
+ * Authenticate JWT token and return the decoded user information.
+ * @param token JWT token string
+ * @returns Decoded user information
+ * @throws Error object with message property if verification fails
+ */
+export function authenticateJwtToken(token: string): APIUser {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET!) as APIUser;
+  } catch {
+    throw {message: 'Invalid token'};
+  }
+}
+
+/**
  * Authentication middleware for Express applications.
  * @param request Express request object
  * @param securityName Name of the security scheme (e.g., 'jwt')
@@ -29,7 +43,7 @@ export async function expressAuthentication(
   const token = authHeader.split(' ')[1];
   try {
     // Verify token and attach user info to request
-    request.jwt_user = jwt.verify(token, process.env.JWT_SECRET!) as APIUser;
+    request.jwt_user = authenticateJwtToken(token);
 
     // Role checking
     if (scopes && scopes.length > 0) {
