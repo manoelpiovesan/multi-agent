@@ -11,7 +11,8 @@ export enum WsOutgoingEventType {
 
 export interface WsUserMessagePayload {
   type: WsIncomingEventType.USER_MESSAGE;
-  thread_id: string;
+  thread_id?: string;
+  supervisor_id?: string;
   content: string;
   metadata?: Record<string, unknown>;
 }
@@ -46,4 +47,3 @@ export type WsOutgoingEvent =
   | WsProcessingEvent
   | WsAssistantMessageEvent
   | WsErrorEvent;
-

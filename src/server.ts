@@ -3,12 +3,14 @@ import {createServer} from "http";
 import {initDb} from "./config/sequelize";
 import app from "./app";
 import {WsChatService} from "./services/ws_chat.service";
+import {BootstrapService} from "./services/bootstrap.service";
 
 
 const PORT = process.env.APP_PORT || 3000;
 
 (async () => {
   await initDb();
+  await BootstrapService.ensureGenericSupervisor();
 
   const server = createServer(app);
   WsChatService.initialize(server);

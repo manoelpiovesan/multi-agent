@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Supervisor Chat</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Simple Supervisor Chat</h1>
+
+    <section class="panel">
+      <div class="row">
+        <label for="serverUrl">Server URL</label>
+        <input id="serverUrl" type="text" placeholder="http://localhost:3000" />
+      </div>
+
+      <div class="row two-columns">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="user@example.com" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="********" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="loginBtn" type="button">Login</button>
+        <button id="logoutBtn" type="button">Clear token</button>
+      </div>
+
+      <div class="row">
+        <label for="token">Access token</label>
+        <textarea id="token" rows="3" placeholder="JWT token"></textarea>
+      </div>
+
+      <div class="row two-columns">
+        <div>
+          <label for="supervisorId">Supervisor ID (opcional)</label>
+          <input id="supervisorId" type="text" placeholder="vazio = supervisor generico" />
+        </div>
+        <div>
+          <label for="threadId">Thread ID (auto)</label>
+          <input id="threadId" type="text" placeholder="sera preenchido automaticamente" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="createThreadBtn" type="button">Create thread (optional)</button>
+        <button id="connectBtn" type="button">Connect WS</button>
+        <button id="disconnectBtn" type="button">Disconnect</button>
+      </div>
+
+      <p id="status" class="status">Status: disconnected</p>
+    </section>
+
+    <section class="chat">
+      <div id="messages" class="messages"></div>
+      <form id="sendForm" class="send-form">
+        <input id="messageInput" type="text" placeholder="Digite sua mensagem" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+
